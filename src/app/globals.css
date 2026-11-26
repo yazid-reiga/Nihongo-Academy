@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #17264b;
+  --color-navy-800: #101a36;
+  --color-indigo: #394a78;
+  --color-red: #d93645;
+  --color-red-dark: #b62e3c;
+  --color-red-ink: #b92f3d;
+  --color-sakura: #f3b7c8;
+  --color-sakura-light: #fbe4ec;
+  --color-cream: #f7f3e9;
+  --color-ivory: #f7f3e9;
+  --color-softgray: #eae8e2;
+  --color-gold: #d9ad55;
+  --color-soft-blue: #dceaf7;
+  --color-soft-green: #dff1e3;
+  --color-soft-yellow: #fbf0cf;
+  --color-soft-purple: #e8e0f7;
+  --color-soft-orange: #fae3d2;
+  --color-success: #2e9e5b;
+  --color-warning: #d99a20;
+  --color-error: #d94250;
+  --color-info: #3b82c4;
+  --font-ui: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Poppins", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-jp: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  --font-jp-serif: "Noto Serif JP", "Hiragino Mincho ProN", serif;
+}
+
+:root {
+  --navy: #17264b;
+  --indigo: #394a78;
+  --red: #d93645;
+  --sakura: #f3b7c8;
+  --cream: #f7f3e9;
+  --gold: #d9ad55;
+  --ink: #1b2440;
+  --muted: #64708d;
+  --line: #e3e6f0;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-ui);
+    color: var(--ink);
+    background: #fbfaf7;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    color: var(--navy);
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  button, a, input, select, textarea {
+    font: inherit;
+  }
+
+  button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.jp {
+  font-family: var(--font-jp);
+}
+
+.jp-serif {
+  font-family: var(--font-jp-serif);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Decorative sakura petals — CSS only, lightweight */
+@keyframes sakura-fall {
+  0% { transform: translate3d(0, -10vh, 0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.9; }
+  100% { transform: translate3d(var(--drift, 80px), 110vh, 0) rotate(540deg); opacity: 0; }
+}
+
+.sakura-petal {
+  position: absolute;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  background: var(--sakura);
+  border-radius: 14px 2px 14px 2px;
+  opacity: 0;
+  pointer-events: none;
+  animation: sakura-fall var(--duration, 12s) linear var(--delay, 0s) infinite;
+  will-change: transform;
+}
+
+@keyframes float-card {
+  0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+  50% { transform: translateY(-12px) rotate(var(--rot, 0deg)); }
+}
+
+.float-card {
+  animation: float-card var(--duration, 6s) ease-in-out infinite;
+}
+
+@keyframes progress-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.progress-fill {
+  transform-origin: left;
+  animation: progress-grow 600ms ease-out;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up,
+.reveal-play {
+  animation: fade-up 500ms ease-out both;
+}
+
+.card-shadow {
+  box-shadow: 0 10px 30px -12px rgba(23, 38, 75, 0.22);
+}
+
+.hero-glow {
+  background-color: #17264b;
+  background-image:
+    radial-gradient(circle at 75% 20%, rgba(245, 166, 193, 0.35), transparent 40%),
+    radial-gradient(circle at 20% 80%, rgba(233, 189, 101, 0.28), transparent 45%),
+    linear-gradient(135deg, #17264b 0%, #394a78 55%, #6b4a6e 100%);
+}
+
+.paper-texture {
+  background-image: radial-gradient(rgba(23, 38, 75, 0.05) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .sakura-petal { display: none; }
+}
+
+[data-reduced-motion="true"] .sakura-petal,
+[data-reduced-motion="true"] .float-card {
+  animation: none !important;
+}
